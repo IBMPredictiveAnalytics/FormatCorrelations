@@ -1,11 +1,11 @@
 # FormatCorrelations
 ## Clean up correlation matrix
- This procedure can improve the appearance of a correlatio
+ This procedure can improve the appearance of a correlation matrix in several ways.  It requires that the SPSSINC MODIFY TABLES extension command is installed.
 
 ---
 Requirements
 ----
-- IBM SPSS Statistics 18 or later
+- IBM SPSS Statistics 18 or later and the corresponding IBM SPSS Statistics-Integration Plug-in for Python.
 
 ---
 Installation intructions
