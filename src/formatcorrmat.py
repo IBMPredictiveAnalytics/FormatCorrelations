@@ -3,7 +3,7 @@
 # *
 # * IBM SPSS Products: Statistics Common
 # *
-# * (C) Copyright IBM Corp. 1989, 2015
+# * (C) Copyright IBM Corp. 1989, 2020
 # *
 # * US Government Users Restricted Rights - Use, duplication or disclosure
 # * restricted by GSA ADP Schedule Contract with IBM Corp. 
@@ -49,17 +49,17 @@ def cleancorr(obj, i, j, numrows, numcols, section, more, custom):
 """
     
     if not (0 <custom.get("hideinsig", .05) <=1.):
-        print "The significance threshold for hiding must be between 0 and 1"
+        print("The significance threshold for hiding must be between 0 and 1")
         raise ValueError
     if not (0. <= custom.get("emphlarge", .5) <= 1.) or not (0 <= custom.get("emphasis", .5) <= 1.):
-        print "The highlighting threshold must be between 0 and 1"
+        print("The highlighting threshold must be between 0 and 1")
         raise ValueError
     if not (0. <= custom.get("boldsig", .05) <= 1):
-        print "Significance threshold for bolding must be between 0 and 1"
+        print("Significance threshold for bolding must be between 0 and 1")
     try:
         int(custom.get("decimals", 999))
     except:
-        print "Decimal parameter must be an integer"
+        print("Decimal parameter must be an integer")
         raise ValueError
     
     ###debugging (move this code appropriately for repeated debugging)
@@ -176,5 +176,5 @@ def attributesFromDict(d):
     """build self attributes from a dictionary d."""
 
     self = d.pop('self')
-    for name, value in d.iteritems():
+    for name, value in d.items():
         setattr(self, name, value)
