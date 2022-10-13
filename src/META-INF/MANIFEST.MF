@@ -1,4 +1,5 @@
 Name: FormatCorrelations
+Display-Name: Correlation Matrix Formatter
 Dialog-Specs: FormatCorrelations.spd
 Code-Files: formatcorrmat.py
 Summary: Clean up correlation matrix
