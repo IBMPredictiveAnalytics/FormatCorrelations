@@ -1,5 +1,4 @@
 Name: FormatCorrelations
-Display-Name: Correlation Matrix Formatter
 Dialog-Specs: FormatCorrelations.spd
 Code-Files: formatcorrmat.py
 Summary: Clean up correlation matrix
@@ -7,8 +6,11 @@ Description: This procedure can improve the appearance of a correlatio
  n matrix in several ways.  It requires that the SPSSINC MODIFY TABLES
   extension command is installed.
 Author: JKP, IBM SPSS
-Version: 2.0.1
+Version: 2.0.2
 Product-Version: 24
+Categories: format correlation
 Plugins: Python
 Python-Version: 3
 Python-Modules: SPSSINC_MODIFY_TABLES.py
+Extension-Bundles: SPSSINC_MODIFY_TABLES
+Translation-Catalogues: 

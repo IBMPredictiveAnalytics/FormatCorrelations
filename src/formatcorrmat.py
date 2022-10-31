@@ -12,17 +12,39 @@
 # Correlation matrix formatting
 
 __author__ = "SPSS, JKP"
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 # history
 # 08-feb-2015 add option to bold significant correlations
+# 29-OCT-2O22 add dependency check
 
 # function RGB takes a list of three values and returns the RGB value
 # function floatex decodes a numeric string value to its float value taking the cell format into account
 
+def attributesFromDict(d):
+    """build self attributes from a dictionary d."""
+
+    self = d.pop('self')
+    for name, value in d.items():
+        setattr(self, name, value)
+
+def checkdep(package):
+    """Check whether package is installed and fail if not
+    
+    package is the extension command name, e.g., STATS_TEXTANALYSIS"""
+    
+    from importlib import util
+    spec = util.find_spec(package)
+    
+    # if there is a directory matching package but no .py file,
+    # spec will not be None, but there will be no loader
+    if spec is None or spec.loader is None:
+        raise ModuleNotFoundError(_(f"""The {package} extension command is required for this command but is not installed.
+Please install it via the Extensions > Extension Hub menu or install a local copy."""))
+
 
 import SpssClient   # for text constants
-from modifytables import RGB
+
 from extension import floatex  # strings to floats
 from spssaux import getSpssVersion
 
@@ -30,7 +52,7 @@ ver=[int(v) for v in getSpssVersion().split(".")]
 hidelok = ver[0] >= 19 or (ver[0] == 18 and ver[1] > 0 or (ver[1] == 0 and ver[2] >= 3))
 
 # behavior settings
-color = RGB((251, 248, 115))      # yellow
+
 BSIZE=3   # number of statistics rows in table
 style = SpssClient.SpssTextStyleTypes.SpssTSBold
 
@@ -47,7 +69,10 @@ def cleancorr(obj, i, j, numrows, numcols, section, more, custom):
     decimals - number of decimal places
     boldsig - bold significant correlations
 """
+    checkdep("SPSSINC_MODIFY_TABLES")
     
+    from modifytables import RGB
+    color = RGB((251, 248, 115))      # yellow
     if not (0 <custom.get("hideinsig", .05) <=1.):
         print("The significance threshold for hiding must be between 0 and 1")
         raise ValueError
@@ -90,7 +115,8 @@ def cleancorr(obj, i, j, numrows, numcols, section, more, custom):
               custom.get("hideinsig", .05),
               emphlarge,
               custom.get("decimals", None),
-              custom.get("boldsig", 0.))
+              custom.get("boldsig", 0.),
+              color)
     
     while True:
         if  f.cleanblock() is False:
@@ -99,7 +125,7 @@ def cleancorr(obj, i, j, numrows, numcols, section, more, custom):
     
 class Clean(object):
     def __init__(self, pt, hideN, hideL, lowertri, hideinsig, emphlarge, 
-        decimals, boldsig):
+        decimals, boldsig, color):
         
         attributesFromDict(locals())
         if not self.decimals is None:
@@ -166,15 +192,9 @@ class Clean(object):
                         corr = 10.
                     if abs(corr) >= self.emphlarge:
                         self.datacells.SetTextStyleAt(rowaddr, c, style)
-                        self.datacells.SetBackgroundColorAt(rowaddr, c, color)
+                        self.datacells.SetBackgroundColorAt(rowaddr, c, self.color)
                 if (not self.decimals is None) and (not skip):
                     self.datacells.SetHDecDigitsAt(rowaddr, c, self.decimals)
         
         self.block += 1
         
-def attributesFromDict(d):
-    """build self attributes from a dictionary d."""
-
-    self = d.pop('self')
-    for name, value in d.items():
-        setattr(self, name, value)
