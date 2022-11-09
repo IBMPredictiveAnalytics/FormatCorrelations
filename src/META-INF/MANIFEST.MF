@@ -4,12 +4,12 @@ Code-Files: formatcorrmat.py
 Summary: Clean up correlation matrix
 Description: This procedure can improve the appearance of a correlatio
  n matrix in several ways.  It requires that the SPSSINC MODIFY TABLES
-  extension command is installed. 
+  extension command is installed.
 Author: JKP, IBM SPSS
 Version: 2.0.2
 Product-Version: 24
 Categories: format correlation
 Plugins: Python
 Python-Version: 3
-Extension-Bundles: SPSSINC_MODIFY_TABLES
-Translation-Catalogues: 
+Extension-Bundles: SPSSINC MODIFY TABLES
+Translation-Catalogues:
