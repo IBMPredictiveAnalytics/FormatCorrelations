@@ -12,4 +12,3 @@ Categories: format correlation
 Plugins: Python
 Python-Version: 3
 Extension-Bundles: SPSSINC MODIFY TABLES
-Translation-Catalogues:
